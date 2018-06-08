@@ -9,7 +9,7 @@ namespace Lab03_System_IO
         {
             bool runProg = true;
             string easyPath = CreateEasyFile();
-            CreateHardFile();
+            string hardPath = CreateHardFile();
             Console.WriteLine("Welcome to Lab 03!\n");
             while (runProg == true)
             {
@@ -24,11 +24,37 @@ namespace Lab03_System_IO
                 switch (userChoice)
                 {
                     case "1":
-                        //ReadEasyFile(easyPath);
-                        PlayGame(easyPath);
+                        string chosenPath = ChooseDifficulty();
+                        if (chosenPath == "1")
+                            PlayGame(easyPath);
+                        else if (chosenPath == "2")
+                            PlayGame(hardPath);
+                        else
+                            Console.Clear();
                         break;
                     case "2":
                         AdminView();
+                        string adminChoice = Console.ReadLine();
+                        if (adminChoice == "1")
+                        {
+                            Console.Clear();
+                            string fileNum = ChooseDifficulty();
+                            string fileToEdit = "";
+                            if (fileNum == "1")
+                                fileToEdit = easyPath;
+                            if (fileNum == "2")
+                                fileToEdit = hardPath;
+
+                            if (fileNum == "1" || fileNum == "2")
+                            {
+                                Console.WriteLine("Which word would you like to add?");
+                                string wordToAdd = Console.ReadLine();
+                                AddWord(wordToAdd, fileToEdit);
+                            }
+                        }
+                            else
+                                Console.Clear();
+                        
                         break;
                     case "3":
                         runProg = false;
@@ -79,7 +105,7 @@ namespace Lab03_System_IO
                 Console.WriteLine(e.Message);
             }
         }
-        public static void CreateHardFile()
+        public static string CreateHardFile()
         {
             string hardPath = @"../../../Text_Files/Hard_Text_List.txt";
             if (!File.Exists(hardPath))
@@ -94,23 +120,37 @@ namespace Lab03_System_IO
                 }
             }
             Console.WriteLine("Hard mode file created!");
+            return hardPath;
         }
         
+        public static string ChooseDifficulty()
+        {
+            Console.Clear();
+            Console.WriteLine("Choose game difficulty:");
+            Console.WriteLine("1. Easy");
+            Console.WriteLine("2. Hard");
+            Console.WriteLine("3. Neither (return to main menu)");
+            string chosenPath = Console.ReadLine();
+            while (chosenPath != "1" && chosenPath != "2" && chosenPath != "3")
+            {
+                Console.WriteLine("That wasn't one of the options! Please try again.");
+                chosenPath = Console.ReadLine();
+            }
+            if (chosenPath == "2")
+                return "2";
+            else if (chosenPath == "3")
+                return "3";
+            else
+                return "1";
+        }
         public static string PickWord(string FILE_PATH)
         {
             string gameWord;
             try
             {  
                 string[] strArr = File.ReadAllText(FILE_PATH).Trim().Split('\n');
-                //foreach (var word in strArr)
-                //{
-                //    Console.WriteLine(word);
-                //}
                 Random rnd1 = new Random();
                 int r = rnd1.Next(strArr.Length);
-                  
-                Console.WriteLine($"{strArr.Length} is your array length.");
-                Console.WriteLine($"{strArr[r]} is your random word.");
                 gameWord = strArr[r];
                 return gameWord;
             }
@@ -131,18 +171,19 @@ namespace Lab03_System_IO
 
         public static void PlayGame(string FILE_PATH)
         {
-            Console.WriteLine("playing GAEMZ!");
+            Console.Clear();
+            Console.WriteLine("Playing GAEMZ!");
             string gameWord = PickWord(FILE_PATH).Trim();
             char[] wordArr = new char[gameWord.Length];
             for (int i = 0; i < wordArr.Length; i++)
                 wordArr[i] = '*';
             string coveredWord = string.Join("", wordArr);
             bool gameDone = false;
-            int lives = 3;
-            Console.WriteLine($"Using the word {gameWord}, but don't tell anyone. Sssh!");
+            int lives = 5;
             
-            while (gameDone == false || lives > 0)
+            while (gameDone == false && lives > 0)
             {
+                Console.WriteLine($"\nLives remaining: {lives}.");
                 Console.WriteLine($"Here's your word: {coveredWord}");
                 char guessedLetter = GuessLetter();
                 if (gameWord.Contains(guessedLetter.ToString()))
@@ -170,6 +211,7 @@ namespace Lab03_System_IO
                 if (lives == 0)
                 {
                     Console.WriteLine("\nI'm sorry, but you lost. :(\n");
+                    Console.WriteLine($"The word was {gameWord}");
                     gameDone = true;
                 }
             }
@@ -179,17 +221,51 @@ namespace Lab03_System_IO
         {
             Console.WriteLine("Guess a letter.");
             string letterGuess = Console.ReadLine();
-            while (letterGuess.Length > 1 || letterGuess.Length < 1)
+            while (letterGuess.Length > 1)
             {
                 Console.WriteLine("One letter only please!");
                 letterGuess = Console.ReadLine();
             }
-            return Convert.ToChar(letterGuess);
+
+            while (letterGuess.Length == 0)
+            {
+                Console.WriteLine("You didn't enter anything! Please try agian.");
+                letterGuess = Console.ReadLine();
+            }
+
+            return Convert.ToChar(letterGuess.ToLower());
         }
 
         public static void AdminView()
         {
+            Console.Clear();
             Console.WriteLine("\nlooking at dem ADMIN VIEWZ!");
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("1. Add a word to a file.");
+            Console.WriteLine("2. Remove words from a text file.");
+            Console.WriteLine("3. View text file.");
+        }
+
+        public static void ChooseFileToEdit()
+        {
+
+        }
+        public static void AddWord(string wordToAdd, string filetoEdit)
+        {
+            try
+            {
+                using (StreamWriter outputFile = new StreamWriter(filetoEdit, true))
+                {
+                    outputFile.WriteLine(wordToAdd);
+                    Console.WriteLine($"{wordToAdd} succesfully added!\n");
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

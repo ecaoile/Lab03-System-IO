@@ -35,26 +35,74 @@ namespace Lab03_System_IO
                     case "2":
                         AdminView();
                         string adminChoice = Console.ReadLine();
-                        if (adminChoice == "1")
-                        {
-                            Console.Clear();
-                            string fileNum = ChooseDifficulty();
-                            string fileToEdit = "";
-                            if (fileNum == "1")
-                                fileToEdit = easyPath;
-                            if (fileNum == "2")
-                                fileToEdit = hardPath;
 
-                            if (fileNum == "1" || fileNum == "2")
-                            {
-                                Console.WriteLine("Which word would you like to add?");
-                                string wordToAdd = Console.ReadLine();
-                                AddWord(wordToAdd, fileToEdit);
-                            }
-                        }
-                            else
+                        switch (adminChoice)
+                        {
+                            case "1":
                                 Console.Clear();
-                        
+                                string fileNum = ChooseDifficulty();
+                                string fileToEdit = "";
+                                if (fileNum == "1")
+                                    fileToEdit = easyPath;
+                                if (fileNum == "2")
+                                    fileToEdit = hardPath;
+
+                                if (fileNum == "1" || fileNum == "2")
+                                {
+                                    Console.WriteLine("List to edit:");
+                                    ReadFile(fileToEdit);
+                                    Console.WriteLine("Which word would you like to add?");
+                                    string wordToAdd = Console.ReadLine().ToLower();
+                                    AddWord(wordToAdd, fileToEdit);
+                                    Console.WriteLine("Your word list now looks like this:");
+                                    ReadFile(fileToEdit);
+                                }
+                                else
+                                    Console.Clear();
+                                break;
+                            case "2":
+                                Console.Clear();
+                                fileNum = ChooseDifficulty();
+                                fileToEdit = "";
+                                if (fileNum == "1")
+                                    fileToEdit = easyPath;
+                                if (fileNum == "2")
+                                    fileToEdit = hardPath;
+
+                                if (fileNum == "1" || fileNum == "2")
+                                {
+                                    Console.WriteLine("List to edit:");
+                                    ReadFile(fileToEdit);
+                                    Console.WriteLine("Which word would you like to delete?");
+                                    string wordToDelete = Console.ReadLine().ToLower();
+
+                                    DeleteWord(wordToDelete, fileToEdit);
+                                }
+                                else
+                                    Console.Clear();
+                                break;
+                            case "3":
+                                Console.Clear();
+                                fileNum = ChooseDifficulty();
+                                fileToEdit = "";
+                                if (fileNum == "1")
+                                {
+                                    fileToEdit = easyPath;
+                                    Console.WriteLine("\nEasy Mode List");
+                                }
+                                if (fileNum == "2")
+                                {
+                                    fileToEdit = hardPath;
+                                    Console.WriteLine("\nHard Mode List");
+                                }
+
+                                ReadFile(fileToEdit);
+                                break;
+                            case "4":
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case "3":
                         runProg = false;
@@ -88,7 +136,7 @@ namespace Lab03_System_IO
             return easyPath;
         }
 
-        public static void ReadEasyFile(string FILE_NAME)
+        public static void ReadFile(string FILE_NAME)
         {
             try
             {   // Open the text file using a stream reader.
@@ -126,7 +174,7 @@ namespace Lab03_System_IO
         public static string ChooseDifficulty()
         {
             Console.Clear();
-            Console.WriteLine("Choose game difficulty:");
+            Console.WriteLine("Choose word list:");
             Console.WriteLine("1. Easy");
             Console.WriteLine("2. Hard");
             Console.WriteLine("3. Neither (return to main menu)");
@@ -163,6 +211,7 @@ namespace Lab03_System_IO
         }
         public static void HomeView()
         {
+            Console.WriteLine("Main Menu");
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. play a word guessing game");
             Console.WriteLine("2. admin access");
@@ -173,65 +222,83 @@ namespace Lab03_System_IO
         {
             Console.Clear();
             Console.WriteLine("Playing GAEMZ!");
-            string gameWord = PickWord(FILE_PATH).Trim();
-            char[] wordArr = new char[gameWord.Length];
-            for (int i = 0; i < wordArr.Length; i++)
-                wordArr[i] = '*';
-            string coveredWord = string.Join("", wordArr);
-            bool gameDone = false;
-            int lives = 5;
-            
-            while (gameDone == false && lives > 0)
+            try
             {
-                Console.WriteLine($"\nLives remaining: {lives}.");
-                Console.WriteLine($"Here's your word: {coveredWord}");
-                char guessedLetter = GuessLetter();
-                if (gameWord.Contains(guessedLetter.ToString()))
+                string gameWord = PickWord(FILE_PATH).Trim();
+                char[] wordArr = new char[gameWord.Length];
+                for (int i = 0; i < wordArr.Length; i++)
+                    wordArr[i] = '*';
+                string coveredWord = string.Join("", wordArr);
+                bool gameDone = false;
+                int lives = 5;
+                char[] correctGuesses = new char[5];
+                char[] wrongGuesses = new char[5];
+                int correctIndex = 0;
+                int wrongIndex = 0;
+                while (gameDone == false && lives > 0)
                 {
-                    Console.WriteLine("That is correct!");
-                    for (int i = 0; i < gameWord.Length; i++)
-                    {
-                        if (gameWord[i] == guessedLetter)
-                            wordArr[i] = guessedLetter;
-                    }
-                    coveredWord = string.Join("", wordArr);
-                }
-                else
-                {
-                    Console.WriteLine("That is incorrect!");
-                    lives--;
-                }
-                
-                if (coveredWord == gameWord)
-                {
-                    Console.WriteLine("\nCongratulations! You win!\n");
-                    gameDone = true;
-                }
+                    Console.WriteLine($"\nLives remaining: {lives}.");
+                    Console.WriteLine($"Here's your word: {coveredWord}");
+                    Console.WriteLine($"Correct letters: {string.Join(' ', correctGuesses)}");
+                    Console.WriteLine($"Incorrect letters: {string.Join(' ', wrongGuesses)}");
 
-                if (lives == 0)
-                {
-                    Console.WriteLine("\nI'm sorry, but you lost. :(\n");
-                    Console.WriteLine($"The word was {gameWord}");
-                    gameDone = true;
+                    char guessedLetter = GuessLetter();
+                    if (gameWord.Contains(guessedLetter.ToString()))
+                    {
+                        Console.WriteLine("That is correct!");
+                        for (int i = 0; i < gameWord.Length; i++)
+                        {
+                            if (gameWord[i] == guessedLetter)
+                                wordArr[i] = guessedLetter;
+                        }
+                        coveredWord = string.Join("", wordArr);
+                        correctGuesses[correctIndex] = guessedLetter;
+                        correctIndex++;
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("That is incorrect!");
+                        wrongGuesses[wrongIndex] = guessedLetter;
+                        wrongIndex++;
+                        lives--;
+                    }
+
+                    if (coveredWord == gameWord)
+                    {
+                        Console.WriteLine("\nCongratulations! You win!\n");
+                        Console.WriteLine($"The word was {gameWord}\n");
+                        gameDone = true;
+                    }
+
+                    if (lives == 0)
+                    {
+                        Console.WriteLine("\nI'm sorry, but you lost. :(");
+                        Console.WriteLine($"The word was {gameWord}\n");
+                        gameDone = true;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+
         }
 
         public static char GuessLetter()
         {
             Console.WriteLine("Guess a letter.");
             string letterGuess = Console.ReadLine();
-            while (letterGuess.Length > 1)
-            {
+            if (letterGuess.Length > 1)
                 Console.WriteLine("One letter only please!");
-                letterGuess = Console.ReadLine();
-            }
+            
+            if (letterGuess.Length == 0)
+                Console.WriteLine("You didn't enter anything! Please try again.");
 
-            while (letterGuess.Length == 0)
-            {
-                Console.WriteLine("You didn't enter anything! Please try agian.");
+            while (letterGuess.Length > 1 || letterGuess.Length == 0)
                 letterGuess = Console.ReadLine();
-            }
 
             return Convert.ToChar(letterGuess.ToLower());
         }
@@ -239,17 +306,15 @@ namespace Lab03_System_IO
         public static void AdminView()
         {
             Console.Clear();
-            Console.WriteLine("\nlooking at dem ADMIN VIEWZ!");
+            Console.WriteLine("Admin Options");
             Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. Add a word to a file.");
             Console.WriteLine("2. Remove words from a text file.");
             Console.WriteLine("3. View text file.");
-        }
-
-        public static void ChooseFileToEdit()
-        {
+            Console.WriteLine("4. Return to main menu.");
 
         }
+
         public static void AddWord(string wordToAdd, string filetoEdit)
         {
             try
@@ -258,6 +323,43 @@ namespace Lab03_System_IO
                 {
                     outputFile.WriteLine(wordToAdd);
                     Console.WriteLine($"{wordToAdd} succesfully added!\n");
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public static void DeleteWord(string wordToDelete, string fileToEdit)
+        {
+            string[] oldStrArr = File.ReadAllText(fileToEdit).Trim().Split('\n');
+            string[] newStrArr = new string[oldStrArr.Length-1];
+            bool foundMatch = false;
+            for (int i = 0; i < newStrArr.Length; i++)
+            {
+                if (oldStrArr[i] != wordToDelete)
+                    newStrArr[i] = oldStrArr[i];
+                else
+                    foundMatch = true;
+            }
+            try
+            {
+                if (foundMatch == false)
+                    Console.WriteLine("Sorry, but we couldn't find that word in the list.");
+                else
+                {
+                    using (StreamWriter outputFile = new StreamWriter(fileToEdit))
+                    {
+                        foreach (var word in newStrArr)
+                            outputFile.WriteLine(word);
+
+                        Console.WriteLine($"{wordToDelete} succesfully deleted!");
+                        Console.WriteLine("New word list:");
+                        ReadFile(fileToEdit);
+                    }
                 }
             }
 

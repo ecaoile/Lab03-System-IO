@@ -1,0 +1,17 @@
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\XUnitTestLab03.deps.json
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\XUnitTestLab03.runtimeconfig.json
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\XUnitTestLab03.runtimeconfig.dev.json
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\XUnitTestLab03.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\XUnitTestLab03.pdb
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\Lab03_System_IO.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\bin\Debug\netcoreapp2.0\Lab03_System_IO.pdb
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\obj\Debug\netcoreapp2.0\XUnitTestLab03.csprojAssemblyReference.cache
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\obj\Debug\netcoreapp2.0\XUnitTestLab03.csproj.CoreCompileInputs.cache
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\obj\Debug\netcoreapp2.0\XUnitTestLab03.AssemblyInfoInputs.cache
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\obj\Debug\netcoreapp2.0\XUnitTestLab03.AssemblyInfo.cs
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\obj\Debug\netcoreapp2.0\XUnitTestLab03.csproj.CopyComplete
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\obj\Debug\netcoreapp2.0\XUnitTestLab03.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\XUnitTestLab03\obj\Debug\netcoreapp2.0\XUnitTestLab03.pdb

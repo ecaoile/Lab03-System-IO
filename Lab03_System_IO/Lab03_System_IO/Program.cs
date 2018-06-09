@@ -118,6 +118,8 @@ namespace Lab03_System_IO
             }
             // exit messages
             Console.WriteLine("Thank you for playing! Press any button to exit.");
+            DeleteFile(easyPath);
+            DeleteFile(hardPath);
             Console.ReadLine();
         }
 
@@ -215,6 +217,33 @@ namespace Lab03_System_IO
             }
         }
 
+        /// <summary>
+        /// deletes text file
+        /// </summary>
+        /// <param name="filePath">file path for the file to delete</param>
+        /// <returns>string value confirm whether file was deleted</returns>
+        public static string DeleteFile(string filePath)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    return "file deleted";
+                }
+                else
+                {
+                    return "no file to delete";
+                }
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine("failed to delete fail");
+                Console.WriteLine(e.Message);
+                return "invalid file path";
+            }
+        }
         /// <summary>
         /// lets the user choose the word list for both playing the game and editing
         /// </summary>

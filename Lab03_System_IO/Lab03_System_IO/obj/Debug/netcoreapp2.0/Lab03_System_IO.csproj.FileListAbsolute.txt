@@ -1,0 +1,11 @@
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\bin\Debug\netcoreapp2.0\Lab03_System_IO.deps.json
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\bin\Debug\netcoreapp2.0\Lab03_System_IO.runtimeconfig.json
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\bin\Debug\netcoreapp2.0\Lab03_System_IO.runtimeconfig.dev.json
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\bin\Debug\netcoreapp2.0\Lab03_System_IO.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\bin\Debug\netcoreapp2.0\Lab03_System_IO.pdb
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\obj\Debug\netcoreapp2.0\Lab03_System_IO.csprojAssemblyReference.cache
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\obj\Debug\netcoreapp2.0\Lab03_System_IO.csproj.CoreCompileInputs.cache
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\obj\Debug\netcoreapp2.0\Lab03_System_IO.AssemblyInfoInputs.cache
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\obj\Debug\netcoreapp2.0\Lab03_System_IO.AssemblyInfo.cs
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\obj\Debug\netcoreapp2.0\Lab03_System_IO.dll
+C:\Users\Unfie\codefellows\401\Lab03-System-IO\Lab03_System_IO\Lab03_System_IO\obj\Debug\netcoreapp2.0\Lab03_System_IO.pdb

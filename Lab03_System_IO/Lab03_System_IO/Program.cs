@@ -3,13 +3,19 @@ using System.IO;
 
 namespace Lab03_System_IO
 {
-    class Program
+    public class Program
     {
+        /// <summary>
+        /// main method that allows user to play a word guess game or edit text files
+        /// </summary>
+        /// <param name="args">what the main method needs to run...</param>
         static void Main(string[] args)
         {
             bool runProg = true;
-            string easyPath = CreateEasyFile();
-            string hardPath = CreateHardFile();
+            string easyPath = @"../../../Text_Files/Easy_Text_List.txt";
+            string hardPath = @"../../../Text_Files/Hard_Text_List.txt";
+            CreateEasyFile(easyPath);
+            CreateHardFile(hardPath);
             Console.WriteLine("Welcome to Lab 03!\n");
             while (runProg == true)
             {
@@ -21,6 +27,7 @@ namespace Lab03_System_IO
                     Console.WriteLine("You did not choose a valid option. Please choose a number between 1 and 4");
                     userChoice = Console.ReadLine();
                 }
+                // main menu options
                 switch (userChoice)
                 {
                     case "1":
@@ -35,7 +42,7 @@ namespace Lab03_System_IO
                     case "2":
                         AdminView();
                         string adminChoice = Console.ReadLine();
-
+                        // admin options
                         switch (adminChoice)
                         {
                             case "1":
@@ -54,8 +61,7 @@ namespace Lab03_System_IO
                                     Console.WriteLine("Which word would you like to add?");
                                     string wordToAdd = Console.ReadLine().ToLower();
                                     AddWord(wordToAdd, fileToEdit);
-                                    Console.WriteLine("Your word list now looks like this:");
-                                    ReadFile(fileToEdit);
+                                    Console.WriteLine($"{wordToAdd} successfully added.");
                                 }
                                 else
                                     Console.Clear();
@@ -75,7 +81,6 @@ namespace Lab03_System_IO
                                     ReadFile(fileToEdit);
                                     Console.WriteLine("Which word would you like to delete?");
                                     string wordToDelete = Console.ReadLine().ToLower();
-
                                     DeleteWord(wordToDelete, fileToEdit);
                                 }
                                 else
@@ -111,32 +116,86 @@ namespace Lab03_System_IO
                         break;
                 }
             }
-            
+            // exit messages
             Console.WriteLine("Thank you for playing! Press any button to exit.");
             Console.ReadLine();
         }
 
-
-        public static string CreateEasyFile()
+        /// <summary>
+        /// creates a text file with words for the easy game mode
+        /// </summary>
+        /// <returns>string declaring whether text file was created</returns>
+        public static string CreateEasyFile(string easyPath)
         {
-            string easyPath = @"../../../Text_Files/Easy_Text_List.txt";
-            if (!File.Exists(easyPath))
+            try
             {
-                // create file and write text
-                using (StreamWriter sw = File.CreateText(easyPath))
+                if (!File.Exists(easyPath) && easyPath.Contains(".txt"))
                 {
-                    sw.WriteLine("test");
-                    sw.WriteLine("file");
-                    sw.WriteLine("easy");
-                    sw.WriteLine("hello");
-                    sw.WriteLine("world");
+                    // create file and write text
+                    using (StreamWriter sw = File.CreateText(easyPath))
+                    {
+                        sw.WriteLine("test");
+                        sw.WriteLine("file");
+                        sw.WriteLine("easy");
+                        sw.WriteLine("hello");
+                        sw.WriteLine("world");
+                        sw.WriteLine("what");
+                    }
+                    return "file created";
                 }
+                if (!easyPath.Contains(".txt"))
+                    return "not a valid .txt file";
+
             }
-            Console.WriteLine("Easy mode file created!");
-            return easyPath;
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return "failed to create file";
+            }
+            return "file exists";
         }
 
-        public static void ReadFile(string FILE_NAME)
+        /// <summary>
+        /// creates a text file with words for the hard game mode
+        /// </summary>
+        /// <returns>string declaring whether text file was created</returns>
+        public static string CreateHardFile(string hardPath)
+        {
+            try
+            {
+                if (!File.Exists(hardPath) && hardPath.Contains(".txt"))
+                {
+                    // create file and write text
+                    using (StreamWriter sw = File.CreateText(hardPath))
+                    {
+                        sw.WriteLine("pneumonoultramicroscopicsilicovolcanoconiosis");
+                        sw.WriteLine("pseudopseudohypoparathyroidism");
+                        sw.WriteLine("antidisestablishmentarianism");
+                        sw.WriteLine("incomprehensibilities");
+                        sw.WriteLine("spectrophotofluorometrically");
+                        sw.WriteLine("hepaticocholangiogastrostomy");
+                    }
+                    return "file created";
+                }
+                if (!hardPath.Contains(".txt"))
+                    return "not a valid .txt file";
+            }
+
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                return "failed to create file";
+            }
+
+            return "file exists";
+        }
+
+        /// <summary>
+        /// reads text files used for the word guess game
+        /// </summary>
+        /// <param name="FILE_NAME">the file path for the text file</param>
+        /// <returns>string indicating whether the file was sucessfully read</returns>
+        public static string ReadFile(string FILE_NAME)
         {
             try
             {   // Open the text file using a stream reader.
@@ -146,31 +205,20 @@ namespace Lab03_System_IO
                     String line = sr.ReadToEnd();
                     Console.WriteLine(line);
                 }
+                return "file read succesfully";
             }
             catch (Exception e)
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
+                return "failed to read file";
             }
         }
-        public static string CreateHardFile()
-        {
-            string hardPath = @"../../../Text_Files/Hard_Text_List.txt";
-            if (!File.Exists(hardPath))
-            {
-                // create file and write text
-                using (StreamWriter sw = File.CreateText(hardPath))
-                {
-                    sw.WriteLine("pneumonoultramicroscopicsilicovolcanoconiosis");
-                    sw.WriteLine("pseudopseudohypoparathyroidism");
-                    sw.WriteLine("antidisestablishmentarianism");
-                    sw.WriteLine("incomprehensibilities");
-                }
-            }
-            Console.WriteLine("Hard mode file created!");
-            return hardPath;
-        }
-        
+
+        /// <summary>
+        /// lets the user choose the word list for both playing the game and editing
+        /// </summary>
+        /// <returns>integer value to be used for other methods</returns>
         public static string ChooseDifficulty()
         {
             Console.Clear();
@@ -191,11 +239,17 @@ namespace Lab03_System_IO
             else
                 return "1";
         }
+
+        /// <summary>
+        /// random picks a word to be used for the word guess game
+        /// </summary>
+        /// <param name="FILE_PATH">the text file to be used for choosing a random word</param>
+        /// <returns>the random word chosen for the game</returns>
         public static string PickWord(string FILE_PATH)
         {
             string gameWord;
             try
-            {  
+            {
                 string[] strArr = File.ReadAllText(FILE_PATH).Trim().Split('\n');
                 Random rnd1 = new Random();
                 int r = rnd1.Next(strArr.Length);
@@ -218,6 +272,10 @@ namespace Lab03_System_IO
             Console.WriteLine("3. exit");
         }
 
+        /// <summary>
+        /// launches the word guess game
+        /// </summary>
+        /// <param name="FILE_PATH">the text file used for the game</param>
         public static void PlayGame(string FILE_PATH)
         {
             Console.Clear();
@@ -231,18 +289,28 @@ namespace Lab03_System_IO
                 string coveredWord = string.Join("", wordArr);
                 bool gameDone = false;
                 int lives = 5;
-                char[] correctGuesses = new char[5];
+                char[] correctGuesses = new char[30];
                 char[] wrongGuesses = new char[5];
                 int correctIndex = 0;
                 int wrongIndex = 0;
                 while (gameDone == false && lives > 0)
                 {
+                    bool uniqueCharGuessed = false;
                     Console.WriteLine($"\nLives remaining: {lives}.");
                     Console.WriteLine($"Here's your word: {coveredWord}");
                     Console.WriteLine($"Correct letters: {string.Join(' ', correctGuesses)}");
                     Console.WriteLine($"Incorrect letters: {string.Join(' ', wrongGuesses)}");
 
                     char guessedLetter = GuessLetter();
+                    if (!string.Join("", correctGuesses).Contains(guessedLetter.ToString()) && !string.Join("", wrongGuesses).Contains(guessedLetter.ToString()))
+                        uniqueCharGuessed = true;
+                    while (uniqueCharGuessed == false)
+                    {
+                        Console.WriteLine("You already guessed that letter!");
+                        guessedLetter = GuessLetter();
+                                            if (!string.Join("", correctGuesses).Contains(guessedLetter.ToString()) && !string.Join("", wrongGuesses).Contains(guessedLetter.ToString()))
+                        uniqueCharGuessed = true;
+                    }
                     if (gameWord.Contains(guessedLetter.ToString()))
                     {
                         Console.WriteLine("That is correct!");
@@ -266,15 +334,15 @@ namespace Lab03_System_IO
 
                     if (coveredWord == gameWord)
                     {
-                        Console.WriteLine("\nCongratulations! You win!\n");
-                        Console.WriteLine($"The word was {gameWord}\n");
+                        Console.WriteLine("\nCongratulations! You win!");
+                        Console.WriteLine($"This was your word: {gameWord}.\n");
                         gameDone = true;
                     }
 
                     if (lives == 0)
                     {
                         Console.WriteLine("\nI'm sorry, but you lost. :(");
-                        Console.WriteLine($"The word was {gameWord}\n");
+                        Console.WriteLine($"This was your word: {gameWord}.\n");
                         gameDone = true;
                     }
                 }
@@ -287,13 +355,17 @@ namespace Lab03_System_IO
 
         }
 
+        /// <summary>
+        /// takes user input and ensures it is the proper format
+        /// </summary>
+        /// <returns>the formatted letter to be used for the game</returns>
         public static char GuessLetter()
         {
             Console.WriteLine("Guess a letter.");
             string letterGuess = Console.ReadLine();
             if (letterGuess.Length > 1)
                 Console.WriteLine("One letter only please!");
-            
+
             if (letterGuess.Length == 0)
                 Console.WriteLine("You didn't enter anything! Please try again.");
 
@@ -303,6 +375,9 @@ namespace Lab03_System_IO
             return Convert.ToChar(letterGuess.ToLower());
         }
 
+        /// <summary>
+        /// displays the admin options
+        /// </summary>
         public static void AdminView()
         {
             Console.Clear();
@@ -312,17 +387,40 @@ namespace Lab03_System_IO
             Console.WriteLine("2. Remove words from a text file.");
             Console.WriteLine("3. View text file.");
             Console.WriteLine("4. Return to main menu.");
-
         }
 
-        public static void AddWord(string wordToAdd, string filetoEdit)
+        /// <summary>
+        /// allows user to add a new word to an existing text file
+        /// </summary>
+        /// <param name="wordToAdd">word to add</param>
+        /// <param name="fileToEdit">file to add word to</param>
+        /// <returns>string confirming whether the word was successfully added</returns>
+        public static string AddWord(string wordToAdd, string fileToEdit)
         {
+            string[] strArr = File.ReadAllText(fileToEdit).Trim().Split('\n');
+            bool foundMatch = false;
+            string properWordToAdd = wordToAdd.ToLower().Trim();
+            foreach (var word in strArr)
+            {
+                if (word.Trim() == properWordToAdd)
+                    foundMatch = true;
+            }
             try
             {
-                using (StreamWriter outputFile = new StreamWriter(filetoEdit, true))
+                if (foundMatch == true)
                 {
-                    outputFile.WriteLine(wordToAdd);
-                    Console.WriteLine($"{wordToAdd} succesfully added!\n");
+                    Console.WriteLine("Sorry, but that word already exists!");
+                    return "word exists";
+                }
+                else
+                {
+                    using (StreamWriter outputFile = new StreamWriter(fileToEdit, true))
+                    {
+                        outputFile.WriteLine(properWordToAdd);
+                        Console.WriteLine($"{properWordToAdd} succesfully added!\n");
+
+                    }
+                    return "added word";
                 }
             }
 
@@ -330,25 +428,36 @@ namespace Lab03_System_IO
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
+                return "failed to add word";
             }
         }
 
-        public static void DeleteWord(string wordToDelete, string fileToEdit)
+        /// <summary>
+        /// allows user to delete a word from an existing text file
+        /// </summary>
+        /// <param name="wordToDelete">word to delete</param>
+        /// <param name="fileToEdit">file to delete text file from</param>
+        /// <returns></returns>
+        public static string DeleteWord(string wordToDelete, string fileToEdit)
         {
             string[] oldStrArr = File.ReadAllText(fileToEdit).Trim().Split('\n');
-            string[] newStrArr = new string[oldStrArr.Length-1];
+            string[] newStrArr = new string[oldStrArr.Length - 1];
             bool foundMatch = false;
+            string properWordToDelete = wordToDelete.ToLower().Trim();
             for (int i = 0; i < newStrArr.Length; i++)
             {
-                if (oldStrArr[i] != wordToDelete)
-                    newStrArr[i] = oldStrArr[i];
-                else
+                if (oldStrArr[i].Trim() == properWordToDelete)
                     foundMatch = true;
+                else
+                    newStrArr[i] = oldStrArr[i].Trim();
             }
             try
             {
                 if (foundMatch == false)
+                {
                     Console.WriteLine("Sorry, but we couldn't find that word in the list.");
+                    return "word not found";
+                }
                 else
                 {
                     using (StreamWriter outputFile = new StreamWriter(fileToEdit))
@@ -356,10 +465,9 @@ namespace Lab03_System_IO
                         foreach (var word in newStrArr)
                             outputFile.WriteLine(word);
 
-                        Console.WriteLine($"{wordToDelete} succesfully deleted!");
-                        Console.WriteLine("New word list:");
-                        ReadFile(fileToEdit);
+                        Console.WriteLine($"{properWordToDelete} succesfully deleted!");
                     }
+                    return "deleted word";
                 }
             }
 
@@ -367,6 +475,7 @@ namespace Lab03_System_IO
             {
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
+                return "failed to read file";
             }
         }
     }

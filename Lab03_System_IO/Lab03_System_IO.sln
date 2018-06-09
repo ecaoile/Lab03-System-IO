@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab03_System_IO", "Lab03_System_IO\Lab03_System_IO.csproj", "{F11A87FB-ADA7-47DC-A7ED-2A8E21B0EF58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lab03_System_IO", "Lab03_System_IO\Lab03_System_IO.csproj", "{F11A87FB-ADA7-47DC-A7ED-2A8E21B0EF58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestLab03", "XUnitTestLab03\XUnitTestLab03.csproj", "{03ABA03B-A82A-42A7-B8DC-6A053D415D3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F11A87FB-ADA7-47DC-A7ED-2A8E21B0EF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F11A87FB-ADA7-47DC-A7ED-2A8E21B0EF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F11A87FB-ADA7-47DC-A7ED-2A8E21B0EF58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03ABA03B-A82A-42A7-B8DC-6A053D415D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03ABA03B-A82A-42A7-B8DC-6A053D415D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03ABA03B-A82A-42A7-B8DC-6A053D415D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03ABA03B-A82A-42A7-B8DC-6A053D415D3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

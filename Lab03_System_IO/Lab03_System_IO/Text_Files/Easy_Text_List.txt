@@ -1,8 +1,5 @@
-test
-file
-easy
-hello
-world
-asdf
-jkl
-asdf
+test
+file
+easy
+hello
+world

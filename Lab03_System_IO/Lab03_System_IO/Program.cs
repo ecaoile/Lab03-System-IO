@@ -239,11 +239,12 @@ namespace Lab03_System_IO
 
             catch (Exception e)
             {
-                Console.WriteLine("failed to delete fail");
+                Console.WriteLine("error with file deletion");
                 Console.WriteLine(e.Message);
-                return "invalid file path";
+                return "exception";
             }
         }
+
         /// <summary>
         /// lets the user choose the word list for both playing the game and editing
         /// </summary>

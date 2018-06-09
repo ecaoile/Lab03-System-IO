@@ -66,5 +66,22 @@ namespace XUnitTestLab03
             Assert.Equal(expectedResult, DeleteWord(wordToDelete, testPath));
             File.Delete(testPath);
         }
+
+        [Theory]
+        [InlineData(@"Test_Text_List1.txt", "file deleted")]
+        [InlineData(@"Test_Text_List2.txt", "file deleted")]
+        public void CanDeleteFile(string testPath, string expectedResult)
+        {
+            CreateEasyFile(testPath);
+            Assert.Equal(expectedResult, DeleteFile(testPath));
+        }
+
+        [Theory]
+        [InlineData(@"", "no file to delete")]
+        [InlineData(@"asdtsdtsltjjaslktj", "no file to delete")]
+        public void CannotDeleteNoFile(string testPath, string expectedResult)
+        {
+            Assert.Equal(expectedResult, DeleteFile(testPath));
+        }
     }
 }

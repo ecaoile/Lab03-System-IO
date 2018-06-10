@@ -49,6 +49,10 @@ namespace XUnitTestLab03
         [InlineData(@"Test_Text_List1.txt", "bacon", "added word")]
         [InlineData(@"Test_Text_List1.txt", "hello", "word exists")]
         [InlineData(@"Test_Text_List2.txt", "world", "word exists")]
+        [InlineData(@"Test_Text_List1.txt", "", "invalid word")]
+        [InlineData(@"Test_Text_List2.txt", 
+            "!$#@@$#@#!$@!#$@fdsjldfajsdfljkflasjfjadsjfjalsdffsdaij" +
+            "foasdjoasjtioajsotjioasjdtatsadsgarqeQ", "invalid word")]
         public void CanAddWord(string testPath, string wordToAdd, string expectedResult)
         {
             CreateEasyFile(testPath);

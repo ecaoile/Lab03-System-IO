@@ -20,7 +20,7 @@ namespace XUnitTestLab03
         [Theory]
         [InlineData("", "not a valid .txt file")]
         [InlineData("dsatkjklstdj.#@$^&&$", "not a valid .txt file")]
-        public void CreateThrowsException(string testPath, string expectedResult)
+        public void PreventCreatingNonTxt(string testPath, string expectedResult)
         {
             Assert.Equal(expectedResult, CreateEasyFile(testPath));
         }

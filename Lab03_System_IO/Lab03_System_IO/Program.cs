@@ -60,6 +60,11 @@ namespace Lab03_System_IO
                                     ReadFile(fileToEdit);
                                     Console.WriteLine("Which word would you like to add?");
                                     string wordToAdd = Console.ReadLine().ToLower();
+                                    while (wordToAdd.Length < 1 || wordToAdd.Length > 30)
+                                    {
+                                        Console.WriteLine("Invalid input. Please try again.");
+                                        wordToAdd = Console.ReadLine().ToLower();
+                                    }
                                     AddWord(wordToAdd, fileToEdit);
                                     Console.WriteLine($"{wordToAdd} successfully added.");
                                 }
@@ -104,6 +109,7 @@ namespace Lab03_System_IO
                                 ReadFile(fileToEdit);
                                 break;
                             case "4":
+                                Console.Clear();
                                 break;
                             default:
                                 break;
@@ -427,6 +433,8 @@ namespace Lab03_System_IO
         /// <returns>string confirming whether the word was successfully added</returns>
         public static string AddWord(string wordToAdd, string fileToEdit)
         {
+            if (wordToAdd == "" || wordToAdd.Length > 30)
+                return "invalid word";
             string[] strArr = File.ReadAllText(fileToEdit).Trim().Split('\n');
             bool foundMatch = false;
             string properWordToAdd = wordToAdd.ToLower().Trim();

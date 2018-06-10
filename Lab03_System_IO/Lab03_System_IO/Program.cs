@@ -344,8 +344,8 @@ namespace Lab03_System_IO
                     {
                         Console.WriteLine("You already guessed that letter!");
                         guessedLetter = GuessLetter();
-                                            if (!string.Join("", correctGuesses).Contains(guessedLetter.ToString()) && !string.Join("", wrongGuesses).Contains(guessedLetter.ToString()))
-                        uniqueCharGuessed = true;
+                        if (!string.Join("", correctGuesses).Contains(guessedLetter.ToString()) && !string.Join("", wrongGuesses).Contains(guessedLetter.ToString()))
+                            uniqueCharGuessed = true;
                     }
                     if (gameWord.Contains(guessedLetter.ToString()))
                     {
@@ -405,7 +405,7 @@ namespace Lab03_System_IO
             if (letterGuess.Length == 0)
                 Console.WriteLine("You didn't enter anything! Please try again.");
 
-            while (letterGuess.Length > 1 || letterGuess.Length == 0)
+            while (letterGuess.Length != 1)
                 letterGuess = Console.ReadLine();
 
             return Convert.ToChar(letterGuess.ToLower());

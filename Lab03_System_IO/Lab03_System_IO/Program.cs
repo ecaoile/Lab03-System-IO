@@ -109,6 +109,7 @@ namespace Lab03_System_IO
                                 ReadFile(fileToEdit);
                                 break;
                             case "4":
+                                Console.Clear();
                                 break;
                             default:
                                 break;

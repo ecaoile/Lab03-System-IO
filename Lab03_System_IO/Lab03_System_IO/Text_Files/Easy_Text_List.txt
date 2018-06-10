@@ -1,0 +1,6 @@
+test
+file
+easy
+hello
+world
+what
